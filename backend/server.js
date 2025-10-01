@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json()); //allow us to accept json data in the req.body
 dontenv.config();
 
-app.use("/api/products", productRoutes )
+app.use("/api/products", productRoutes)
 
 app.listen(1000, () => {
   connectDB();
