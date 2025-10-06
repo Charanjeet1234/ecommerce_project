@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+const URL = "http://localhost:3000"
 export const useProductStore = create((set) => ({
   products: [],
   setProducts: (products) => set({ products }),
@@ -17,4 +18,9 @@ export const useProductStore = create((set) => ({
     set((state) => ({ products: [...state.products, res.data] }));
     return { success: true, message: "Product added Successfully" };
   },
+  fetchProducts: async () =>
+    {
+      const data = await axios.get("http://localhost:3000/api/products")
+      set({products: data.data})
+    } 
 }));
