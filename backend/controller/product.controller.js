@@ -45,7 +45,6 @@ export const addProduct = async (req, res) => {
       .json({ success: false, message: "Please fill all fields" });
   }
   const newProduct = new Product(product);
-
   try {
     await newProduct.save();
     res.status(201).json({ success: true, data: newProduct });

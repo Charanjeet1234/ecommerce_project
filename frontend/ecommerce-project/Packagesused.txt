@@ -1,0 +1,3 @@
+react-router-dom
+zustand Package for store
+axios
