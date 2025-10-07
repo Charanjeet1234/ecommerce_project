@@ -18,9 +18,10 @@ export const useProductStore = create((set) => ({
     set((state) => ({ products: [...state.products, res.data] }));
     return { success: true, message: "Product added Successfully" };
   },
+  
   fetchProducts: async () =>
     {
-      const data = await axios.get("http://localhost:3000/api/products")
-      set({products: data.data})
+      const res = await axios.get("http://localhost:3000/api/products")
+      set({products: res.data.data})
     } 
 }));
