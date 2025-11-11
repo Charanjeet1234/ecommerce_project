@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-const URL = "http://localhost:3000"
+const URL = "http://localhost:3000";
 export const useProductStore = create((set) => ({
   products: [],
   setProducts: (products) => set({ products }),
@@ -18,21 +18,37 @@ export const useProductStore = create((set) => ({
     set((state) => ({ products: [...state.products, res.data] }));
     return { success: true, message: "Product added Successfully" };
   },
-  
-  fetchProducts: async () =>
-    {
-      const res = await axios.get("http://localhost:3000/api/products")
-      set({products: res.data.data})
-    },
 
-    deleteProduct: async (pid) =>
-    {
-      const res = await axios.delete(`http://localhost:3000/api/products/${pid}`)
-      // if(!res.success)
-      // {
-      //   return { success: false, message: res.message };
-      // }
-      set(state => ({products: state.products.filter(product => product._id !== product._pid)}))
-      return { success: true, message: res.message };
-    }
+  fetchProducts: async () => {
+    const res = await axios.get("http://localhost:3000/api/products");
+    set({ products: res.data.data });
+  },
+
+  deleteProduct: async (pid) => {
+    const res = await axios.delete(`http://localhost:3000/api/products/${pid}`);
+    // if(!res.success)
+    // {
+    //   return { success: false, message: res.message };
+    // }
+    set((state) => ({
+      products: state.products.filter(
+        (product) => product._id !== product._pid
+      ),
+    }));
+    return { success: true, message: "Product deleted" };
+  },
+
+  updateProduct: async (pid, updatedProduct) => {
+    const res = await axios.put(
+      `http://localhost:3000/api/products/${pid}`,
+      updatedProduct
+    );
+    if (res.success) return { success: true, message: "Product added Successfully" };
+    set((state) => ({
+      products: state.products.map((product) =>
+        product._id !== pid ? res.data : product
+      ),
+    }));
+     return { success: true, message: "Product added Successfully" };
+  },
 }));
