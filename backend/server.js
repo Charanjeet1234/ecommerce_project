@@ -43,10 +43,10 @@ app.use("/api/products", productRoutes)
 
 if(process.env.NODE_ENV === "production")
 {
-    app.use(express.static(path.join(__dirname, "frontend" , "ecommerce-project" ,"dist")))
+    app.use(express.static(path.join(__dirname, "frontend/ecommerce-project/dist")))
     app.get("/*", (req, res) =>
     {
-      res.sendFile(path.join(__dirname, "frontend", "ecommerce-project" ,"dist", "index.html"))
+      res.sendFile(path.join(__dirname, "frontend", "ecommerce-project", "dist", "index.html"))
     })
 }
 app.listen(Port, () => {
