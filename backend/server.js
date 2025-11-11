@@ -1,7 +1,8 @@
 import express from "express";
 import dontenv from "dotenv";
 import cors from 'cors';
-import path from 'Path'
+import path from 'path'
+import { fileURLToPath } from "url";
 
 import { connectDB } from "./config/db.js";
 import productRoutes from './routes/product.route.js'
@@ -10,7 +11,11 @@ const Port = process.env.PORT || 3000
 app.use(express.json()); //allow us to accept json data in the req.body
 dontenv.config();
 app.use(cors()); // Allows all origins
-const __dirname = path.resolve();
+
+// Fix __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use("/api/products", productRoutes)
 
 
